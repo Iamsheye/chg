@@ -2,7 +2,6 @@ import {
   GithubAuthProvider,
   onAuthStateChanged,
   signInWithPopup,
-  signInWithRedirect,
 } from "firebase/auth";
 import React, { useEffect, useState } from "react";
 import toast from "react-hot-toast";
@@ -37,7 +36,7 @@ const Home = () => {
 
   const logInUser = () => {
     dispatch(setLoading(true));
-    signInWithRedirect(auth, new GithubAuthProvider())
+    signInWithPopup(auth, new GithubAuthProvider())
       .then((res: any) => setUpdate(true))
       .catch((err: any) => {
         dispatch(setError(err.code));
