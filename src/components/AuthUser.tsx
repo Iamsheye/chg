@@ -17,8 +17,6 @@ const AuthUser = () => {
     dispatch(logout());
   };
 
-  console.log(data);
-
   return (
     <>
       <Header activeTab={activeTab} setActiveTab={setActiveTab} />

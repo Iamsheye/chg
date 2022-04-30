@@ -10,6 +10,7 @@ import { RootState } from "../app/store";
 import { login, setLoading, setError } from "../app/userSlice";
 import AuthUser from "../components/AuthUser";
 import { auth } from "../firebase";
+import GitHubIcon from "../assets/github.png";
 
 const Home = () => {
   const [update, setUpdate] = useState(false);
@@ -47,14 +48,29 @@ const Home = () => {
   return (
     <div>
       {data.loading ? (
-        "Loading..."
+        <section className="grid h-[100vh] place-items-center">
+          <div>
+            <div className="lds-ring">
+              <div></div>
+              <div></div>
+              <div></div>
+              <div></div>
+            </div>
+          </div>
+        </section>
       ) : data.isLoggedIn ? (
         <AuthUser />
       ) : (
-        <>
-          Home
-          <button onClick={logInUser}>Login with GitHub</button>
-        </>
+        <section className="grid h-[100vh] place-items-center">
+          <div>
+            <button
+              onClick={logInUser}
+              className="flex items-center gap-3 rounded-md bg-[#171515] py-3  px-6 text-lg font-bold text-white text-white hover:scale-110"
+            >
+              Login with GitHub <img src={GitHubIcon} width="24" />
+            </button>
+          </div>
+        </section>
       )}
     </div>
   );
