@@ -1,4 +1,5 @@
 import React from "react";
+import Pill from "./Pill";
 
 interface IHeader {
   activeTab: string;
@@ -23,6 +24,7 @@ const Header = ({ setActiveTab, activeTab }: IHeader) => {
             <div className="scrollbar flex overflow-x-auto">
               {tabs.map((elem) => (
                 <div
+                  key={elem.name}
                   className={`flex-none cursor-pointer py-2 px-4 ${
                     activeTab === elem.name ? "border-b-2 border-[#fd8c73]" : ""
                   }`}
@@ -35,7 +37,9 @@ const Header = ({ setActiveTab, activeTab }: IHeader) => {
                         : "text-sm text-[#24292F]"
                     }
                   >
-                    {elem.name}
+                    {elem.name}{" "}
+                    {elem.name === "Repositories" && <Pill num={36} />}
+                    {elem.name === "Stars" && <Pill num={36} />}
                   </p>
                 </div>
               ))}

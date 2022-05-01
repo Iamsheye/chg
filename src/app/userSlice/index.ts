@@ -21,7 +21,7 @@ export const userSlice = createSlice({
     setLoading: (state, action: PayloadAction<boolean>) => {
       state.loading = action.payload;
     },
-    login: (state, action) => {
+    login: (state, action: PayloadAction<Record<string, any>>) => {
       state.isLoggedIn = true;
       state.user = action.payload;
     },

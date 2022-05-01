@@ -1,9 +1,5 @@
-import {
-  GithubAuthProvider,
-  onAuthStateChanged,
-  signInWithPopup,
-} from "firebase/auth";
-import React, { useEffect, useState } from "react";
+import { GithubAuthProvider, signInWithPopup } from "firebase/auth";
+import React, { useEffect } from "react";
 import toast from "react-hot-toast";
 import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "../app/store";
@@ -13,7 +9,6 @@ import { auth } from "../firebase";
 import GitHubIcon from "../assets/github.png";
 
 const Home = () => {
-  const [update, setUpdate] = useState(false);
   const data = useSelector((state: RootState) => state.user);
   const dispatch = useDispatch();
 
@@ -26,19 +21,12 @@ const Home = () => {
     }
   }, [data.error, data.isLoggedIn]);
 
-  useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (res) => {
-      if (res) {
-        dispatch(login(res));
-      }
-    });
-    return unsubscribe;
-  }, [update]);
-
   const logInUser = () => {
     dispatch(setLoading(true));
     signInWithPopup(auth, new GithubAuthProvider())
-      .then((res: any) => setUpdate(true))
+      .then((res: any) => {
+        dispatch(login(res));
+      })
       .catch((err: any) => {
         dispatch(setError(err.code));
       })
@@ -65,9 +53,10 @@ const Home = () => {
           <div>
             <button
               onClick={logInUser}
-              className="flex items-center gap-3 rounded-md bg-[#171515] py-3  px-6 text-lg font-bold text-white text-white hover:scale-110"
+              className="flex items-center gap-3 rounded-md bg-[#171515] py-3  px-6 text-lg font-bold text-white hover:scale-105"
             >
-              Login with GitHub <img src={GitHubIcon} width="24" />
+              Login with GitHub{" "}
+              <img src={GitHubIcon} width="24" alt="GitHub Icon" />
             </button>
           </div>
         </section>
