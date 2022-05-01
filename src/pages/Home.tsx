@@ -1,14 +1,26 @@
-import { GithubAuthProvider, signInWithPopup } from "firebase/auth";
-import React, { useEffect } from "react";
+import {
+  GithubAuthProvider,
+  onAuthStateChanged,
+  signInWithPopup,
+} from "firebase/auth";
+import React, { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "../app/store";
-import { login, setLoading, setError } from "../app/userSlice";
+import {
+  login,
+  setLoading,
+  setError,
+  addAuthUser,
+  addTokenResponse,
+} from "../app/userSlice";
 import AuthUser from "../components/AuthUser";
 import { auth } from "../firebase";
 import GitHubIcon from "../assets/github.png";
+import axios from "axios";
 
 const Home = () => {
+  const [update, setUpdate] = useState(false);
   const data = useSelector((state: RootState) => state.user);
   const dispatch = useDispatch();
 
@@ -21,11 +33,32 @@ const Home = () => {
     }
   }, [data.error, data.isLoggedIn]);
 
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (res) => {
+      if (res) {
+        console.log(data);
+        dispatch(login(res));
+      }
+      if (data.tokenResponse) {
+        (async () => {
+          const authUser = await axios.get("https://api.github.com/user", {
+            headers: {
+              Authorization: `token ${data.tokenResponse}`,
+            },
+          });
+          dispatch(addAuthUser(authUser.data));
+        })();
+      }
+    });
+    return unsubscribe;
+  }, [update]);
+
   const logInUser = () => {
     dispatch(setLoading(true));
     signInWithPopup(auth, new GithubAuthProvider())
       .then((res: any) => {
-        dispatch(login(res));
+        setUpdate(true);
+        dispatch(addTokenResponse(res._tokenResponse.oauthAccessToken));
       })
       .catch((err: any) => {
         dispatch(setError(err.code));

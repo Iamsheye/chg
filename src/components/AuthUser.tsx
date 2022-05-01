@@ -25,9 +25,9 @@ const AuthUser = () => {
           <div className="-mt-8 w-[296px]">
             <div>
               <div className="relative z-10 grid place-items-center">
-                <a itemProp="image" href={data.user.user.photoURL}>
+                <a itemProp="image" href={data.user.photoURL}>
                   <img
-                    src={data.user.user.photoURL}
+                    src={data.user.photoURL}
                     alt=""
                     className="h-64 w-64 rounded-full border border-[#1b1f2426]"
                   />
@@ -40,10 +40,10 @@ const AuthUser = () => {
               </div>
               <h1 className="py-4">
                 <span className="block text-[1.5rem] font-semibold leading-[1.25rem]">
-                  {data.user.user.displayName}
+                  {data.user.displayName}
                 </span>
                 <span className="block text-[1.25rem] font-light leading-[1.5rem] text-[#57606a]">
-                  {data.user.user.reloadUserInfo.screenName}
+                  {data.user.reloadUserInfo.screenName}
                 </span>
               </h1>
             </div>
