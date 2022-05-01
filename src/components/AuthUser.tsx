@@ -1,14 +1,16 @@
+import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { signOut } from "firebase/auth";
 import { RootState } from "../app/store";
 import { logout } from "../app/userSlice";
 import { auth } from "../firebase";
 import Header from "./Header";
-import { useState } from "react";
+import { ReactComponent as Followers } from "../assets/followers.svg";
+import { ReactComponent as Pin } from "../assets/location-pin.svg";
 
 const AuthUser = () => {
-  const data = useSelector((state: RootState) => state.user);
   const dispatch = useDispatch();
+  const data = useSelector((state: RootState) => state.user);
 
   const [activeTab, setActiveTab] = useState("Repositories");
 
@@ -51,10 +53,29 @@ const AuthUser = () => {
               <button className="mb-3 w-full cursor-pointer rounded border border-[#1b1f2426] bg-[#f6f8fa] py-1 px-4 text-sm font-medium">
                 Edit profile
               </button>
-              <div className="mb-3"></div>
-              <div>
-                <span></span>
+              <div className="mb-3 flex items-center gap-1">
+                <p className="text-{#57606a flex items-center gap-1 text-sm">
+                  <Followers />
+                  <span className="font-semibold">
+                    {data.authUser.followers}
+                  </span>{" "}
+                  followers
+                </p>
+                {"·"}
+                <p className="text-{#57606a text-sm">
+                  <span className="font-semibold">
+                    {data.authUser.following}
+                  </span>{" "}
+                  following
+                </p>
               </div>
+              <div className="flex items-center gap-1">
+                <Pin />
+                <span className="text-sm">{data.authUser.location}</span>
+              </div>
+            </div>
+            <div className="mt-4 border-t border-[#d8dee4] pt-4">
+              <h3 className="mb-2 text-base font-semibold">Achievements</h3>
             </div>
           </div>
           <div className="grow"></div>

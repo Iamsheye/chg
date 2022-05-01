@@ -1,4 +1,6 @@
 import React from "react";
+import { useSelector } from "react-redux";
+import { RootState } from "../app/store";
 import Pill from "./Pill";
 
 interface IHeader {
@@ -7,6 +9,8 @@ interface IHeader {
 }
 
 const Header = ({ setActiveTab, activeTab }: IHeader) => {
+    const data = useSelector((state: RootState) => state.user);
+
   const tabs = [
     { name: "Overview" },
     { name: "Repositories" },
@@ -38,8 +42,10 @@ const Header = ({ setActiveTab, activeTab }: IHeader) => {
                     }
                   >
                     {elem.name}{" "}
-                    {elem.name === "Repositories" && <Pill num={36} />}
-                    {elem.name === "Stars" && <Pill num={36} />}
+                    {elem.name === "Repositories" && (
+                      <Pill num={data.authUser.public_repos} />
+                    )}
+                    {/* {elem.name === "Stars" && <Pill num={36} />} */}
                   </p>
                 </div>
               ))}
