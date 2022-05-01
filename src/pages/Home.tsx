@@ -34,20 +34,20 @@ const Home = () => {
   }, [data.error, data.isLoggedIn]);
 
   useEffect(() => {
+    if (data.tokenResponse) {
+      (async () => {
+        const authUser = await axios.get("https://api.github.com/user", {
+          headers: {
+            Authorization: `token ${data.tokenResponse}`,
+          },
+        });
+        dispatch(addAuthUser(authUser.data));
+      })();
+    }
     const unsubscribe = onAuthStateChanged(auth, (res) => {
       if (res) {
         console.log(data);
         dispatch(login(res));
-      }
-      if (data.tokenResponse) {
-        (async () => {
-          const authUser = await axios.get("https://api.github.com/user", {
-            headers: {
-              Authorization: `token ${data.tokenResponse}`,
-            },
-          });
-          dispatch(addAuthUser(authUser.data));
-        })();
       }
     });
     return unsubscribe;
