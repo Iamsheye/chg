@@ -1,11 +1,20 @@
 import React from "react";
-import { useSelector } from "react-redux";
+import { signOut } from "firebase/auth";
+import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../app/store";
+import { auth } from "../firebase";
+import { logout } from "../app/userSlice";
 import { ReactComponent as Followers } from "../assets/followers.svg";
 import { ReactComponent as Pin } from "../assets/location-pin.svg";
 
 const Sidebar = () => {
+  const dispatch = useDispatch();
   const data = useSelector((state: RootState) => state.user);
+
+  const logOutUser = () => {
+    signOut(auth);
+    dispatch(logout());
+  };
 
   return (
     <div className="-mt-8 w-[296px]">
@@ -59,6 +68,12 @@ const Sidebar = () => {
       <div className="mt-4 border-t border-[#d8dee4] pt-4">
         <h3 className="mb-2 text-base font-semibold">Achievements</h3>
       </div>
+      <button
+        onClick={logOutUser}
+        className="mb-3 w-full cursor-pointer rounded border border-[#1b1f2426] bg-[#f6f8fa] py-1 px-4 text-sm font-medium"
+      >
+        Sign Out
+      </button>
     </div>
   );
 };

@@ -7,14 +7,24 @@ import { ReactComponent as New } from "../assets/new.svg";
 import { ReactComponent as Caret } from "../assets/caret.svg";
 import { ReactComponent as Star } from "../assets/star.svg";
 import { ReactComponent as Chart } from "../assets/chart.svg";
+import { ReactComponent as License } from "../assets/license.svg";
 
 const Repos = () => {
   const data = useSelector((state: RootState) => state.user);
   const [repos, setRepos] = useState(data.userRepos);
+  const [search, setSearch] = useState("");
 
   useEffect(() => {
     setRepos(data.userRepos);
   }, [data.userRepos]);
+
+  useEffect(() => {
+    setRepos(() =>
+      data.userRepos.filter((repo) =>
+        repo.name.toLowerCase().includes(search.toLowerCase())
+      )
+    );
+  }, [search]);
 
   return (
     <section>
@@ -24,6 +34,8 @@ const Repos = () => {
             <form className="grow">
               <input
                 type="text"
+                value={search}
+                onChange={(e) => setSearch(e.target.value)}
                 className="w-full rounded-md border border-[#d0d7de] py-1.5 px-3 text-sm focus-visible:outline-[#0969da]"
               />
             </form>
@@ -66,9 +78,21 @@ const Repos = () => {
                   {elem.language && (
                     <span className="mr-4">{elem.language}</span>
                   )}{" "}
-                  {elem.forks_count >= 1 && (
-                    <span className="mr-4">{elem.elem.forks_count}</span>
+                  {elem.stargazers_count >= 1 && (
+                    <span className="mr-4">
+                      <Star className="mr-1 inline-block fill-current align-middle text-[#57606a]" />
+                      {elem.stargazers_count}
+                    </span>
                   )}{" "}
+                  {elem.forks_count >= 1 && (
+                    <span className="mr-4">{elem.forks_count}</span>
+                  )}{" "}
+                  {elem.license && (
+                    <span className="mr-4">
+                      <License className="mr-1 inline-block fill-current align-middle text-[#57606a]" />
+                      {elem.license.name}
+                    </span>
+                  )}
                   Updated on {format(new Date(elem.updated_at), "d MMM yyyy")}
                 </div>
               </div>
