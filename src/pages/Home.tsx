@@ -13,6 +13,7 @@ import {
   setError,
   addAuthUser,
   addTokenResponse,
+  addUserRepos,
 } from "../app/userSlice";
 import AuthUser from "../components/AuthUser";
 import { auth } from "../firebase";
@@ -41,12 +42,17 @@ const Home = () => {
             Authorization: `token ${data.tokenResponse}`,
           },
         });
+        const userRepos = await axios.get("https://api.github.com/user/repos", {
+          headers: {
+            Authorization: `token ${data.tokenResponse}`,
+          },
+        });
         dispatch(addAuthUser(authUser.data));
+        dispatch(addUserRepos(userRepos.data));
       })();
     }
     const unsubscribe = onAuthStateChanged(auth, (res) => {
       if (res) {
-        console.log(data);
         dispatch(login(res));
       }
     });

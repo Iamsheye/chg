@@ -7,6 +7,7 @@ type State = {
   user: Record<string, any>;
   authUser: Record<string, any>;
   tokenResponse: string;
+  userRepos: Record<string, any>[];
 };
 
 const initialState: State = {
@@ -15,6 +16,7 @@ const initialState: State = {
   isLoggedIn: false,
   user: {},
   authUser: {},
+  userRepos: [],
   tokenResponse: localStorage.getItem("tokenResponse") || "",
 };
 
@@ -34,6 +36,9 @@ export const userSlice = createSlice({
     },
     addAuthUser: (state, action: PayloadAction<Record<string, any>>) => {
       state.authUser = action.payload;
+    },
+    addUserRepos: (state, action: PayloadAction<Record<string, any>[]>) => {
+      state.userRepos = action.payload;
     },
     addTokenResponse: (state, action: PayloadAction<string>) => {
       state.tokenResponse = action.payload;
@@ -56,6 +61,7 @@ export const {
   setError,
   addAuthUser,
   addTokenResponse,
+  addUserRepos,
 } = userSlice.actions;
 
 export default userSlice.reducer;
