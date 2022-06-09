@@ -60,7 +60,7 @@ const Repos = () => {
               key={elem.id}
               className="grid grid-cols-12 border-b border-[#d0d7de] py-6"
             >
-              <div className="col-span-10 md:col-span-9">
+              <div className="col-span-8 md:col-span-9">
                 <div className="mb-1">
                   <h3>
                     <span className="text-xl font-semibold text-[#0969da]">
@@ -98,7 +98,7 @@ const Repos = () => {
                   Updated on {format(new Date(elem.updated_at), "d MMM yyyy")}
                 </div>
               </div>
-              <div className="col-span-2 md:col-span-3">
+              <div className="col-start-12 md:col-span-3">
                 <div className="mb-3 flex justify-end">
                   <div className="flex cursor-pointer">
                     <div className="rounded-l-md border border-[#1b1f2426] bg-[#f6f8fa] py-1 px-3 text-xs font-medium">
@@ -110,7 +110,7 @@ const Repos = () => {
                     </div>
                   </div>
                 </div>
-                <div className="flex justify-end">
+                <div className="hidden justify-end md:flex">
                   <div>
                     <Chart />
                   </div>
