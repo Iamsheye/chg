@@ -17,7 +17,7 @@ const Sidebar = () => {
   };
 
   return (
-    <div className="-mt-8 w-[296px]">
+    <div className="-mt-8 hidden w-[296px] md:block">
       <div>
         <div className="relative z-10 grid place-items-center">
           <a itemProp="image" href={data.user.photoURL}>

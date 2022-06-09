@@ -9,6 +9,15 @@ body {
   background: #fff;
 }
 
+.scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+.scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
 .wrapper {
   width: 100%;
   padding-right: 1rem;

@@ -29,9 +29,9 @@ const Repos = () => {
   return (
     <section>
       <div className="border-b border-[#d0d7de] py-4">
-        <div className="flex gap-4">
-          <div className="flex grow gap-4">
-            <form className="grow">
+        <div className="gap-4 md:flex">
+          <div className="mb-2.5 grow gap-4 md:mb-0 md:flex">
+            <form className="mb-1.5 grow md:mb-0">
               <input
                 type="text"
                 value={search}
@@ -45,9 +45,11 @@ const Repos = () => {
               <Dropdown name="Sort" />
             </div>
           </div>
-          <button className="border-[##1b1f2426] ml-auto flex cursor-pointer items-center gap-1.5 rounded-md border bg-[#2da44e] py-1.5 px-4 text-sm font-medium text-white">
-            <New className="fill-current text-white" />
-            New
+          <button className="border-[##1b1f2426] flex w-full cursor-pointer justify-center rounded-md border bg-[#2da44e] py-1.5 px-4 text-sm font-medium text-white md:ml-auto md:w-auto">
+            <span className="flex items-center gap-1.5 ">
+              <New className="fill-current text-white" />
+              New
+            </span>
           </button>
         </div>
       </div>

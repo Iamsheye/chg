@@ -9,7 +9,7 @@ interface IHeader {
 }
 
 const Header = ({ setActiveTab, activeTab }: IHeader) => {
-    const data = useSelector((state: RootState) => state.user);
+  const data = useSelector((state: RootState) => state.user);
 
   const tabs = [
     { name: "Overview" },
@@ -22,8 +22,8 @@ const Header = ({ setActiveTab, activeTab }: IHeader) => {
   return (
     <div className="mt-6 border-b border-[#d0d7de] bg-white">
       <div className="wrapper">
-        <div className="flex gap-6">
-          <div className="w-[296px]"></div>
+        <div className="gap-6 md:flex">
+          <div className="hidden w-[296px] md:block"></div>
           <div className="grow">
             <div className="scrollbar flex overflow-x-auto">
               {tabs.map((elem) => (
